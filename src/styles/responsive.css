@@ -334,13 +334,14 @@
 	.menu-footer{margin-bottom:5rem;}
 	.menu-footer p, .menu-footer p a{font-size:14px;}
 	.social-links li + li{margin-top:2rem;}
-	.opened + .satvam-brand + .hamburger-search .hamburger .bar1{transform:rotate(-90deg) translate(0px, 10px)}
-	.opened + .satvam-brand + .hamburger-search .hamburger .bar3{transform:rotate(-90deg) translate(-1px, 10px)}
+	.opened + .satvam-brand + .hamburger-search .hamburger .bars{width:86%;}
+	.opened + .satvam-brand + .hamburger-search .hamburger .bar1{transform:rotate(-90deg) translate(-2px, 8px);width:40%;}
+	.opened + .satvam-brand + .hamburger-search .hamburger .bar3{transform:rotate(-90deg) translate(1px, 8px);width:40%;}
 	.satvam-brand,.brand-base{width:40px;top:30px;}
 	.hamburger-search, .hs-base{top:47px;}
 	.search-link,.search-btn{width:23px;height:23px}
 	.searchbars-close-overlay img{height:23px;}
-	.hamburger{width:35px;height:21px;}
+	.hamburger{width:30px;height:19px;}
 	.search-container{height:118px}
 	.search-result-sub{height:calc(100vh - 118px);}
 	.search-result-sub{padding-bottom:50px;}
