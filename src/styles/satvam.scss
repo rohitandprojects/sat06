@@ -71,7 +71,7 @@ header{z-index:99;padding:0 5.04466631634% 0 5.04466631634%;height:0;}
 .hamburger-search{display:flex;align-items:center;}
 .brand-base,.hs-base,.search-base{z-index:85;transform:scale(2);background:$red-color;filter: blur(50px) invert(1);mix-blend-mode:color-burn;opacity:1;}
 .brand-base img,.hs-base img{opacity:0;}
-.search-base{width:50px;height:50px;display:none;}
+.search-base{display:none;}
 .search-link,.search-btn{width:37px;}
 
 .search-btn{right:10px;top:50%;transform:translateY(-50%);background:none;border:none;position:relative;z-index:9;}
@@ -2081,9 +2081,10 @@ a:focus 	{color:$black-color;text-decoration:none}
 	#jprePercentage{top:57%;}	
 	.satvam-brand{left:50%;transform:translateX(-50%);width:35px;top:20px;z-index:115;}
 	.search-main{width:35px;}
-	.brand-base{left:50%;transform:translateX(-50%) scale(1.5);width:35px;top:20px;}
-	.hs-base{top:24px;transform:scale(1.5)}
-	.search-base{top:12px;transform:scale(1.5);left:10px;display:block;}
+	/* .brand-base{left:50%;transform:translateX(-50%) scale(2);width:35px;top:20px;}
+	.hs-base{transform:scale(2);right:-25px;top:12px;height:55px;} */
+	.search-base{width:100%;height:30px;top:0px;left:0px;display:block;filter:blur(40px) invert(1);opacity:0.7;}
+	.brand-base, .hs-base{display:none!important}
 	.hamburger-search{justify-content:space-between;top:24px;width:calc(100% - (5.0446663163% + 5.0446663163%));}
 	.search-container{height:135px;}
 	.search-sub{width:calc(100% - (5.0446663163% + 5.0446663163%));top:auto;bottom:10px;left:50%;transform:translateX(-50%);padding-left:0px;padding-right:50px;}
