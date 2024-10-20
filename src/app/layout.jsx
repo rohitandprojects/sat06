@@ -1,7 +1,7 @@
 import { Baloo_2, Baloo_Bhai_2 } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../styles/satvam.scss';
-import "../styles/responsive.css";
+/*import "../styles/responsive.css";*/
 import Header from "./components/header";
 import SmoothScrolling from "./components/SmoothScrolling";
 

@@ -123,6 +123,7 @@ const Header = () => {
       <img src="/images/search.svg" width={37} height={37} className="search-icon d-block h-auto" alt="search" />
       <img src="/images/hamburger.svg" width={47} height={27} className="w-100 d-block h-auto" alt="hamburger" />
     </div>
+    <div className="search-base position-fixed"></div>
     {/* <div className={`search-container position-fixed ${isSearchActive ? 'opened' : ''}`}>
         <div className="search-sub position-absolute">
           <form onSubmit={handleSearchSubmit}>
