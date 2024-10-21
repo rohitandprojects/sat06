@@ -80,7 +80,7 @@ export default function Home() {
 			//console.log('> 768');
 		}
 		else{
-			sceneOne.to('.scene1-house', { duration:6,ease: "power1.inOut",scale:1.75,delay:-5.5});
+			sceneOne.to('.scene1-house', { duration:6,ease: "power1.inOut",scale:3,delay:-5.5});
 			//console.log('< 768');
 		}
 		//sceneOne.to('.grandma', { duration:10,ease: "power1.inOut",scale:5,delay:-5.5});

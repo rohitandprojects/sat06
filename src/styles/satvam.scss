@@ -69,7 +69,7 @@ header{z-index:99;padding:0 5.04466631634% 0 5.04466631634%;height:0;}
 .hamburger .bar3{bottom:1px;}
 .hamburger img{opacity:0;}
 .hamburger-search{display:flex;align-items:center;}
-.brand-base,.hs-base,.search-base{z-index:85;transform:scale(2);background:$red-color;filter: blur(50px) invert(1);mix-blend-mode:color-burn;opacity:1;}
+.brand-base,.hs-base,.search-base{z-index:85;transform:scale(2);background:$red-color;filter:blur(50px) invert(1);mix-blend-mode:color-burn;opacity:0.5}
 .brand-base img,.hs-base img{opacity:0;}
 .search-base{display:none;}
 .search-link,.search-btn{width:37px;}
@@ -2083,7 +2083,7 @@ a:focus 	{color:$black-color;text-decoration:none}
 	.search-main{width:35px;}
 	/* .brand-base{left:50%;transform:translateX(-50%) scale(2);width:35px;top:20px;}
 	.hs-base{transform:scale(2);right:-25px;top:12px;height:55px;} */
-	.search-base{width:100%;height:30px;top:0px;left:0px;display:block;filter:blur(40px) invert(1);opacity:0.7;}
+	.search-base{width:100%;height:30px;top:0px;left:0px;display:block;filter:blur(30px) invert(1);opacity:0.3;}
 	.brand-base, .hs-base{display:none!important}
 	.hamburger-search{justify-content:space-between;top:24px;width:calc(100% - (5.0446663163% + 5.0446663163%));}
 	.search-container{height:135px;}
@@ -2322,6 +2322,9 @@ a:focus 	{color:$black-color;text-decoration:none}
 	.search-sub .form-control{font-size:16px;}
 	.search-product-row ul li{flex:0 0 50%;font-size:14px}
 	.search-product-row ul li a, .search-product-row ul li a:hover, .search-product-row ul li a:focus{font-size:14px;}
+	.about-video-div{padding-bottom:40%}
+	.about-video-img{padding-bottom:55%;}
+	.about-video-img img{width:120%!important;}
 	.world-map .world-map-strip{display:block;}
 	#panels #panels-container{padding:35px 0;}
 	.event-exhibition{height:auto;}
