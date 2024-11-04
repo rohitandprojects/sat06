@@ -16,7 +16,7 @@ export default function Page(){
     console.log(data.id);
     return <main className="categories-page">
         <div className="d-flex w-100 justify-content-between add-categories align-items-center">
-            <h3>About</h3>
+            <h3>Corporate Video & Apply Now</h3>
 {
     (!data[0]?.id || !data[1]?.id) && <Link href={'/backend/admin/categoriesAbout/form'}><button className="btn position-relative">Add</button></Link>
 }

@@ -19,14 +19,14 @@ export const getAllPostsWithCategory = async (categoryId) => {
         const collectionRef = collection(db, 'posts');
         const q = query(collectionRef, where('categoryId', '==', categoryId), orderBy('timestamp', 'desc'));
         //, where("timestamp", ">", 1), orderBy('timestamp', 'desc')
-           /* const q = query(collectionRef)
-            .where('categoryId', '==', categoryId)
-            .orderBy('timestamp', 'desc');
-            const query = firebase
-          .firestore()
-          .collection()
-          .where('categoryId', '==', categoryId)
-          .orderBy('timestamp', 'asc');*/
+        /* const q = query(collectionRef)
+        .where('categoryId', '==', categoryId)
+        .orderBy('timestamp', 'desc');
+        const query = firebase
+        .firestore()
+        .collection()
+        .where('categoryId', '==', categoryId)
+        .orderBy('timestamp', 'asc');*/
          return await getDocs(q).then((snaps) => snaps.docs.map((d) => d.data()));
     }
     else {

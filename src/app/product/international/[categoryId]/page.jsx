@@ -1,12 +1,10 @@
 //import { getAllPostsWithCategory } from "@/app/lib/firebase/post/read_server";
-'use client';
+/*'use client';*/
 import { PostCardInter } from "@/app/components/PostListViewInter";
 import { getAllPostsWithCategory } from "@/app/lib/firebase/postInter/read_server";
 import { getAllCategories } from "@/app/lib/firebase/categoryInter/read_server";
+import ListingLoading from "../../listing-loading";
 //import { hyphenToSpace } from "@/utils/transformName";
-//import { useRouter } from 'next/navigation';
-import Link from "next/link";
-import Script from 'next/script';
 
 export default async function generateStaticParams({ params }) {
   const { categoryId } = params;
@@ -15,6 +13,7 @@ export default async function generateStaticParams({ params }) {
   //const { categoryName } = params.name;
   const posts = await getAllPostsWithCategory(categoryId);
   const matchCateName = await getAllCategories();
+  const total = matchCateName.length - 1; 
   //console.log(categoryId + '  hi')
    //const spaceToHyphen = (str) => str.replace(/\s+/g, '-');
   return <section className="section position-static margin-top120">
@@ -35,6 +34,15 @@ export default async function generateStaticParams({ params }) {
                 </div>
             </div>
           </div>  
+      </div>
+      <div className="product-loader min-height100 text-center">
+        <ListingLoading></ListingLoading>
+        {matchCateName?.map((posted, key) => {
+          return <div key={key} className="">
+            {(posted?.id == categoryId) && <h2 className="text-center p-0">{matchCateName[key+1]?.name}</h2>}
+            {(posted?.id == categoryId) && (key == total) && <h2 className="text-center p-0">{matchCateName[0]?.name}</h2>}
+          </div>
+        })}
       </div>
     </section>
     

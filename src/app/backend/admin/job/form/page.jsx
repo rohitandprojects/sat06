@@ -4,18 +4,12 @@ import { useEffect, useState } from "react";
 import { useCategoryForm } from "./contexts/CategoryFormContext";
 import { useSearchParams } from "next/navigation";
 import { spaceToHyphen } from "@/utils/transformName";
+import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link";
 
 export default function Page(){
     const searchParams = useSearchParams();
     const updateCategoryId = searchParams.get('id');
-    //const [thedate, setThedate] = useState('');
-    const dateTimeLocalNow = new Date(
-        new Date().getTime() - new Date().getTimezoneOffset() * 60_000
-    ).toISOString()
-    .slice(0, 16);
-    //let dateTime ="";
-    //const spaceToHyphen = (str) => str.replace(/\s+/g, '-');
     const {
         data,
         isLoading,
@@ -25,15 +19,11 @@ export default function Page(){
         handleCreate,
         handleUpdate,
         handleDelete,
-        image, setImage,date, setDate,fetchData
+        image, setImage,fetchData
     } = useCategoryForm();
-    //let date = data?.timestamp.toDate().toDateString();
-    //let time = data?.timestamp.toDate().toLocaleTimeString('en-US');
-   // let dateTime = data?.timestamp.toDate().toDateString();
     useEffect(() => {
         if(updateCategoryId){
             fetchData(updateCategoryId);
-           // dateTime = data?.timestamp.toDate().toLocaleTimeString('en-US', {day:'2-digit', month:'2-digit', year:'2-digit'})
         }
     }, [updateCategoryId]);
 
@@ -42,9 +32,9 @@ export default function Page(){
             <h3 className="category-form-title align-items-center">
                 {updateCategoryId && <span className="update-text">Update/Delete</span>}
                 {!updateCategoryId && <span className="creater-text">Create</span>}
-                <div>Edit </div>
+                <div>Job</div>
             </h3>
-            <Link href={'/backend/admin/categoriesAbout/'}>
+            <Link href={'/backend/admin/job/'}>
                 <button className="btn position-relative">Back</button>
             </Link>
         </div>
@@ -58,9 +48,11 @@ export default function Page(){
                 }
             }}
         >
+        <div className="row">
+            <div className="col-lg-6 col-md-6 col-sm-6">
             <div className="form-group">
-                <label className="form-label"><strong>Name</strong> <span>*</span></label>
-                <input type="text" className="form-control" placeholder="Name"
+                <label className="form-label"><strong>Job Provider</strong> <span>*</span></label>
+                <input type="text" className="form-control" placeholder="Job Provider"
                 onChange={(e) => {
                     handleData('name', e.target.value)
                 }}
@@ -69,18 +61,34 @@ export default function Page(){
                 {/* <div className="form-text">We'll never share your email with anyone else.</div> */}
             </div>
             <div className="form-group">
-                <label className="form-label"><strong>Slug</strong> <span>*</span></label>
-                <input type="text" className="form-control" disabled={updateCategoryId} placeholder="Category Slug"
+                <label className="form-label"><strong>Job Provider Slug</strong> <span>*</span></label>
+                <input type="text" className="form-control" disabled={updateCategoryId} placeholder="Job Provider Slug"
                 onChange={(e) => {
-                    let slugName = (e.target.value).toLowerCase();
+                    let slugName = (e.target.value).replace(/[^\w a-zA-Z0-9]/g, '').toLowerCase();
                     handleData('slug', spaceToHyphen(slugName));
                 }}
                 value={data?.id}
                  required />
             </div>
             <div className="form-group">
-                <label className="form-label"><strong>Link</strong> <span>*</span></label>
-                <input type="text" className="form-control" placeholder="Link"
+                <label className="form-label"><strong>Job Provider Logo</strong></label>
+                <div className="product-image-wrap">
+                    <div className="product-image">
+                        {data?.iconURL && <div className="icon-img"><img src={data?.iconURL} className="cat-img" alt="" /></div>}
+                        {image && <div className="icon-new-img"><img src={URL.createObjectURL(image)} className="cat-img" alt="" /></div>}             
+                    </div>
+                    <div className="product-control">
+                        <input type="file" accept="image/*" className="form-control" placeholder="Logo Image"
+                        onChange={(e) => {
+                            setImage(e.target.files[0]); 
+                        }}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className="form-group">
+                <label className="form-label"><strong>Job Link</strong> <span>*</span></label>
+                <input type="text" className="form-control" placeholder="Job Link"
                 onChange={(e) => {
                     handleData('link', e.target.value)
                 }}
@@ -88,49 +96,6 @@ export default function Page(){
                 required />
                 {/* <div className="form-text">We'll never share your email with anyone else.</div> */}
             </div>
-            {/* <div className="form-group">
-                <label className="form-label"><strong>Category Date</strong> <span>*</span></label>
-                <div className="form-control"> */}
-                     
-                {/* {data?.timestamp && <strong>{data?.timestamp.toDate().toLocaleTimeString('en-US', {day:'2-digit', month:'2-digit', year:'2-digit'})}</strong>} */}
-                    {/* {data?.timestamp.toDate().toLocaleTimeString('en-US', {day:'2-digit', month:'2-digit', year:'2-digit'})} */}
-                {/* </div>
-            </div> */}
-            {/* <div className="form-group">
-                <label className="form-label"><strong>Category Date New</strong> <span>*</span></label>
-                <input type="date" className="form-control" placeholder="Category Date"
-                onChange={(e) => {
-                    setDate(e.target.value)
-                }}
-               //defaultValue={dateTimeLocalNow}
-               value={data?.date}
-                 />
-            </div> */}
-            {/* <div className="form-group">
-                <label className="form-label"><strong>Category Date</strong> <span>*</span></label>
-                <input type="datetime-local" className="form-control" placeholder="Category Date"
-                onChange={(e) => {
-                  handleData('timestamp', e.target.value)
-                }}
-                value={data?.timestamp}
-                 />
-            </div> */}
-            {/* <div className="form-group">
-                <label className="form-label"><strong>Category Icon</strong></label>
-                <div className="product-image-wrap">
-                    <div className="product-image">
-                        {data?.iconURL && <div className="icon-img"><img src={data?.iconURL} className="cat-img" alt="" /></div>}
-                        {image && <div className="icon-new-img"><img src={URL.createObjectURL(image)} className="cat-img" alt="" /></div>}             
-                    </div>
-                    <div className="product-control">
-                        <input type="file" accept="image/*" className="form-control" placeholder="Product Image"
-                        onChange={(e) => {
-                            setImage(e.target.files[0]); 
-                        }}
-                        />
-                    </div>
-                </div>
-            </div> */}
             { error && <p className="error">{error}</p> }
             <div className="d-flex two-by-two">
             {!isDone &&
@@ -138,10 +103,10 @@ export default function Page(){
                     type="submit" 
                     disabled={isLoading || isDone}
                     className="btn d-block">
-                    {isLoading ? "Loading..." : data?.id ? "Update" : "Create"}
+                    {isLoading ? "Loading..." : data?.iconURL ? "Update" : "Create"}
                 </button>
             }             
-            {/* { updateCategoryId && !isDone &&
+            { updateCategoryId && !isDone &&
                 <button 
                     onClick={(e) =>{
                         e.preventDefault();
@@ -152,9 +117,14 @@ export default function Page(){
                     className="btn d-block">
                     {isLoading ? "Loading..." : "Delete"}
                 </button>
-            } */}
+            }
             </div>
             {isDone && <p className="isDone">Successfully {updateCategoryId ? "Update" : "Created"} !</p>}
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6">
+                {/* <ExportedImage src="/advertising.webp" className="w-100 h-auto" width={800} height={340} alt="Advertisement"/> */}
+            </div>
+        </div>
         </form>
     </main>
 }

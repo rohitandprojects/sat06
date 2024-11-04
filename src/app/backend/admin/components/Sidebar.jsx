@@ -69,10 +69,20 @@ export default function Sidebar(){
             <li><Link href="#" className="admin-products-link">Blog Posts</Link>
                 <SidebarBlog></SidebarBlog>
             </li>
-            <li><Link href="/backend/admin/categoriesAbout" className={ pathname === '/backend/admin/categoriesAbout' ? "active" : ""}>About</Link></li>
-            <li><Link href="/backend/admin/advertisement" className={ pathname === '/backend/admin/advertisement' ? "active" : ""}>Advertisement <p>(About Page)</p></Link></li>
-            <li><Link href="/backend/admin/event-exhibition" className={ pathname === '/backend/admin/event-exhibition' ? "active" : ""}>Event & Exhibition <p>(Export page)</p></Link></li>
-            <li><Link href="/backend/admin/international-carousel" className={ pathname === '/backend/admin/international-carousel' ? "active" : ""}>International Carousel <p>(Export page)</p></Link></li>
+            <li><Link href="#" className="admin-products-link">About</Link>
+                <ul className="position-relative">
+                    <li><Link href="/backend/admin/categoriesAbout" className={ pathname === '/backend/admin/categoriesAbout' ? "active" : ""}>Corporate Video & Apply Now</Link></li>
+                    <li><Link href="/backend/admin/advertisement" className={ pathname === '/backend/admin/advertisement' ? "active" : ""}>Advertisement</Link></li>
+                    <li><Link href="/backend/admin/job" className={ pathname === '/backend/admin/job' ? "active" : ""}>Job Provider</Link></li>
+                </ul>
+            </li>
+            <li><Link href="#" className="admin-products-link">Export</Link>
+                <ul className="position-relative">
+                    <li><Link href="/backend/admin/event-exhibition" className={ pathname === '/backend/admin/event-exhibition' ? "active" : ""}>Event & Exhibition</Link></li>
+                    <li><Link href="/backend/admin/international-carousel" className={ pathname === '/backend/admin/international-carousel' ? "active" : ""}>International Carousel</Link></li>
+                    <li><Link href="/backend/admin/catalogue" className={ pathname === '/backend/admin/catalogue' ? "active" : ""}>E-Catalogue</Link></li>
+                </ul>
+            </li>            
             <li><Link href="#" className="admin-products-link">Media</Link>
                 <ul className="position-relative">
                     <li><Link href="/backend/admin/tvc" className={ pathname === '/backend/admin/tvc' ? "active" : ""}>TVC and Corporate Film</Link></li>

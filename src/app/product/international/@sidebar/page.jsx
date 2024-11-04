@@ -1,17 +1,17 @@
 "use client";
 import { getAllCategories } from "@/app/lib/firebase/categoryInter/read_server";
-import Link from "next/link";
+import CategoryFirstDomestic from "../../@category_first_domestic/page";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from 'next/navigation';
-import CategoryFirstDomestic from "../../@category_first_domestic/page";
+import Link from "next/link";
+
 const fetchCountryData = async () => {
   const categories = await getAllCategories();
   return categories;
 }
 
-export default function Sidebar(params) {
+export default function Sidebar() {
   const initialized = useRef(false);
-  const hyphenToSpace = (str) => str.replace(/-/g, ' ');
   const [countries, setCountries] = useState([]);
   const [error, setError] = useState(null);
   const firstCategory = countries[0]?.id;
@@ -21,38 +21,26 @@ export default function Sidebar(params) {
   const [isActive, setIsActive] = useState(false);
   const [isMobile, setIsMobile] = useState(false); // New state for mobile view detection
   const sidebarRef = useRef(null);
+  const activeIndexRef = useRef(0); // Reference to track the active index
 
   //const [activeStyle, setActiveStyle] = useState({});
   //const buttonRef = useRef(null);
   const handleCategoryClick = (categoryId, e, categoryName) => {
     //alert('click on link: '+categoryName);
     routers.push(`/product/international/${categoryId}`);
-    /*routers.push({
-      pathname:`/product/domestic/${categoryId}`,
-      query: { name: 'Someone' }
-    })*/
-    /*routers.push({
-      pathname:`/product/domestic/${categoryId}`,
-      query: { name: 'Someone' }
-    }, `/product/domestic/${categoryId}`);*/
+    activeIndexRef.current = countries.findIndex(c => c.id === categoryId);
+    if(countries.length == (activeIndexRef.current + 1)){
+      activeIndexRef.current = -1;
+    }
     setActiveCategory(categoryId, e);    
   }
   const handleFirstDomCategoryClick = (firstCategory) => {
     //console.log('firstCategory: ' + firstCategory);
     routers.push(`/product/international/${firstCategory}`);
     setActiveCategory(firstCategory);
-    document.getElementById('effect').style.top = '0px';
+    document.getElementById('effects').style.top = '0px';
+    activeIndexRef.current = countries.findIndex(c => c.id === firstCategory);
   }
-  useEffect(() => {
-    //add active class to on page load category
-    /*const pathname = location.pathname;
-    const pathSegments = pathname.split('/').filter(segment => segment !== '');
-    const lastPathSegment = pathSegments[pathSegments.length - 1];
-    setActiveCategory(lastPathSegment);*/
-    //console.log(countries.length);
-    //console.log(lastPathSegment);
-  },[ ]);
-    
   useEffect(()=>{
       if(!initialized.current){
           initialized.current = true;    
@@ -60,12 +48,27 @@ export default function Sidebar(params) {
             try{
               const data = await fetchCountryData();
               setCountries(data);
-              const pathname = location.pathname;
-              const pathSegments = pathname.split('/').filter(segment => segment !== '');
-              const lastPathSegment = pathSegments[pathSegments.length - 1];
+              const pathname = window.location.pathname;
+              //const pathSegments = pathname.split('/').filter(segment => segment !== '');
+              //const lastPathSegment = pathSegments[pathSegments.length - 1];
+              const lastPathSegment = pathname.split('/').pop();
               setActiveCategory(lastPathSegment);
 
+              //const pathnames = window.location.pathname; // Get the current pathname
+              //const initialCategoryId = pathnames.split('/').pop(); // Extract the last part of the path
 
+              if (data.length >= 0) {
+                const initialCategory = data.find(c => c.id.toString() === lastPathSegment);
+                /*console.log('Initial Category:', initialCategory.id);*/
+                activeIndexRef.current = data.findIndex(c => c.id === initialCategory.id);
+                /*console.log('activeIndexRef.current:', activeIndexRef.current);
+                console.log('next:', data[activeIndexRef.current+1]?.id);
+                console.log('data.length:- ', data.length)*/
+                if(data.length == activeIndexRef.current+1){
+                  //console.log('next:- ', data[activeIndexRef.current]?.id);
+                  activeIndexRef.current = -1;
+                }
+              }
 
               function isTouchDevice(){
                 return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
@@ -77,7 +80,7 @@ export default function Sidebar(params) {
                         link.addEventListener('mouseover', function(event) {
                           var elem = this;
                           //console.log(elem.offsetLeft, elem.offsetTop);
-                          document.getElementById('effect').style.top = elem.offsetTop + 'px';
+                          document.getElementById('effects').style.top = elem.offsetTop + 'px';
                         },false);
                       });
                       var leftActiveLink;
@@ -92,10 +95,10 @@ export default function Sidebar(params) {
                             }
                             if(leftActiveLink){
                               leftActiveLink = document.querySelector('.left-links ul .active');
-                            document.getElementById('effect').style.top = leftActiveLink.offsetTop + 'px';
+                            document.getElementById('effects').style.top = leftActiveLink.offsetTop + 'px';
                           }
                       };}
-                      const productMenu = document.getElementById('effect');    
+                      const productMenu = document.getElementById('effects');    
                       function movetoActive(){
                         if(leftActiveLink){
                          // console.log('left link');
@@ -240,7 +243,7 @@ export default function Sidebar(params) {
                   //console.log('getAttribute :'+ category_name);    
                   if(flag == category_name)
                   {
-                      console.log('if :'+ flag +' '+category_name);
+                      //console.log('if :'+ flag +' '+category_name);
                   }
                   else{
                       listItems = document.querySelectorAll('.content-scroll ul li');
@@ -305,16 +308,13 @@ const toggleSidebar = () => {
     setIsActive(!isActive);
   }
 };
-
-  useEffect(() => {
-   
+useEffect(() => {
     const handleScroll = () => {
       // Calculate how far the user has scrolled
       const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
       const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
       const clientHeight = document.documentElement.clientHeight || window.innerHeight;
       const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
       // If scrolled to the bottom, trigger your callback function
       if (scrolledToBottom) {
         handleScrollToBottom();
@@ -323,9 +323,37 @@ const toggleSidebar = () => {
 
     const handleScrollToBottom = () => {
       // Your callback function to be executed when scrolled to bottom
-      console.log('------------------------------------');
+      /*console.log('------------------------------------');
       console.log('Scrolled to bottom of page!');
-      console.log('------------------------------------');
+      console.log('------------------------------------');*/
+      const nextIndex = activeIndexRef.current + 1; // Increment the index
+      //console.log('countries: '+ [countries?.id].length);
+      if (nextIndex < countries.length) {
+        //console.log('nextIndex: '+ nextIndex + '  countries.length:'+ countries.length);
+        routers.push(`/product/international/${countries[nextIndex]?.id}`);
+        const nextCategory = countries[nextIndex]?.id;
+        //setActiveCategory(firstCategory);        
+        const timer3 = setTimeout(() => {
+          let leftActiveLink = document.querySelector('.left-links ul .active');
+          document.getElementById('effects').style.top = leftActiveLink.offsetTop + 'px';
+          return () => clearTimeout(timer3);
+        }, 1000);  
+        const timer = setTimeout(() => {
+          setActiveCategory(nextCategory);
+          if (nextIndex == (countries.length - 1)){
+              //console.log('nextIndex: '+ nextIndex);
+              activeIndexRef.current = -1; // Update the ref to the new index  
+             // console.log('nextIndex-1: '+ (nextIndex-1) + "  activeIndexRef.current: "+  activeIndexRef.current);
+          }
+          else{
+            activeIndexRef.current = nextIndex; // Update the ref to the new index 
+          }
+          // You can perform any action here, like updating state or making an API call
+        }, 700);    
+        // Cleanup function to clear the timeout if the component unmounts
+        return () => clearTimeout(timer);
+      }
+      
       //console.log(nextCategory);
       //debugger;
       /*if(nextCategory){
@@ -343,18 +371,12 @@ const toggleSidebar = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []); // Empty dependency array ensures this effect runs only once
+  }, [countries]); // Empty dependency array ensures this effect runs only once
 
   return <>
-    {/* <button onClick={toggleSidebar} className={`left-navi position-fixed customButton ${isActive ? styles.activeButton : ''}`}>Toggle Sidebar</button>
-      <div ref={sidebarRef} className={`left-links position-fixed ${styles.sidebar} ${isActive ? styles.active : ''}`}>
-        <p>This is the sidebar content!</p>
-      </div> */}
     <ul className="product-range-links d-flex justify-content-center position-fixed">
-    <li><CategoryFirstDomestic linkName={'Domestic Range'}></CategoryFirstDomestic></li>
+      <li><CategoryFirstDomestic linkName={'Domestic Range'}></CategoryFirstDomestic></li>
       <li onClick={(e) => handleFirstDomCategoryClick(firstCategory)}><Link href='#' className="active">International Range</Link></li>
-       {/* <li><CategoryFirstInternational linkName={'International Range'}></CategoryFirstInternational></li>
-     <li><Link href={`/product/international/`}>International Range</Link></li> */}
     </ul>
     <button onClick={toggleSidebar} className={`left-navi position-fixed ${isActive ? 'active' : ''}`}><img src="/images/category-icon.svg" width="32" height="30" alt="Ground spices"/></button>
       <div ref={sidebarRef} className={`left-links position-fixed ${isActive ?  'opened' : ''}`}>
@@ -367,7 +389,7 @@ const toggleSidebar = () => {
                   )
                 }
               )}
-              <div className="effect position-absolute" id="effect"><div><img src="/images/icon5.svg" width="30" height="30" alt="Jeera Powder"/><span>Effect</span></div></div>
+              <div className="effect position-absolute" id="effects"><div><img src="/images/icon5.svg" width="30" height="30" alt="Jeera Powder"/><span>Effect</span></div></div>
             </ul>
           </div> 
         </div>

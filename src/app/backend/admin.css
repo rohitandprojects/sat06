@@ -135,3 +135,5 @@ td.packaging{max-width:200px;}
 .event-date li{font-size:13px;display:flex;}
 .event-date li + li{margin-top:5px;}
 .event-date li strong{font-size:14px;width:85px;font-weight:400;}
+.job-table .product-imgs{height:auto;width:250px;}
+.job-table .product-imgs img{width:100%;height:auto;}

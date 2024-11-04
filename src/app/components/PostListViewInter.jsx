@@ -2,7 +2,7 @@ import Link from "next/link";
 /*import { getAuthors } from "../lib/firebase/author/read_server";*/
 import ExportedImage from "next-image-export-optimizer";
 /*import { getCategoryInter } from "../lib/firebase/categoryInter/read_server";*/
-import { getAllPosts } from "../lib/firebase/postInter/read_server";
+/*import { getAllPosts } from "../lib/firebase/postInter/read_server";
 import Image from "next/image";
 
 export default async function PostsListViewInter(){
@@ -17,7 +17,7 @@ export default async function PostsListViewInter(){
             return <PostCardInter post={post} key={key} />
         })}
     </div></section>
-}
+}*/
 
 export function PostCardInter({ post }) {
     return <> {(!post?.content4) && <div className="col-lg-4 col-md-4 col-sm-4 product-list-col">

@@ -1,12 +1,13 @@
 import { useState, Component } from 'react';
 import Image from 'next/image';
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
-
+import { useCategories } from "@/app/lib/firebase/catalogue/read";
 // import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Spinner from '@/app/components/spinner';
 function Catalogue() {
+	const { data, error, isLoading } = useCategories();
     const [b2bShow, setB2bShow] = useState(false);
     //const [dealerShow, setDealerShow] = useState(false);
 	const [formData, setFormData] = useState({
@@ -152,7 +153,7 @@ function Catalogue() {
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>						
 						<div className="row form-row">	
 							<div className="col-12">
 								{submitting  === false && <button type="submit" className="view-job-offers-link position-relative send-btn">Send Request</button>}
@@ -160,8 +161,8 @@ function Catalogue() {
 							</div>
 							<div className="col-12 message">
 								<div className='ps-3'>
-								{isSuccess === true && <h3 className="text-light-green">Your E-Catalogue Download Request has been submitted!<br/> We shall get back to you soon... </h3>}
-								{isError === true && <h3 className="text-danger">Error while submitting your E-Catalogue Enquiry</h3>}
+									{isSuccess === true && <h3 className="text-light-green">Your request has been submitted! Please <a href={data?.[0].iconURL+'.pdf'} download target="_blank">click here</a> to Download E-Catalogue</h3>}
+									{isError === true && <h3 className="text-danger">Error while submitting your E-Catalogue Enquiry</h3>}
 								</div>
 							</div>
 						</div>

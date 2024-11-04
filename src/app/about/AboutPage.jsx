@@ -9,6 +9,7 @@ import CategoryFirstInternational from "../product/@category_first_international
 import ExportedImage from "next-image-export-optimizer";
 import Link from 'next/link';
 import VideoAbout from "./video";
+import Job from "./job";
 //import Exhibition from "../components/exhibition";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -497,14 +498,15 @@ const AboutPage = ({ post }) => {
 								<h2 ref={jobTitleRef}>Current Job Openings</h2>
 								<p ref={jobTextRef}>At Satvam, we believe in the power of people to uphold our commitment to purity
 									and excellence. Our team is at the heart of our brand's success, ensuring that every
-									detail is cared for and that authenticity shines through in every product. <strong>Join us!!</strong>
+									detail is cared for and that authenticity shines through in every product. <strong>Join us!! </strong> 
 									where People Make Satvam, where you can contribute to delivering the best and
 									upholding our deep-rooted values.</p>
 							</div>							
-							<ul className="job-logos-ul justify-content-between align-items-center" ref={jobLogosRef}>
-								<li><ExportedImage src="/images/naukri.webp" width={359} height={52} alt="naukri" className="mw-100 h-auto"/></li>
+							<ul className="job-logos-ul justify-content-center align-items-center" ref={jobLogosRef}>
+								<Job></Job>
+								{/* <li><ExportedImage src="/images/naukri.webp" width={359} height={52} alt="naukri" className="mw-100 h-auto"/></li>
 								<li><ExportedImage src="/images/indeed.webp" width={223} height={60} alt="indeed" className="mw-100 h-auto"/></li>
-								<li><ExportedImage src="/images/linkedIn.webp" width={241} height={60} alt="linkedIn" className="mw-100 h-auto"/></li>
+								<li><ExportedImage src="/images/linkedIn.webp" width={241} height={60} alt="linkedIn" className="mw-100 h-auto"/></li> */}
 							</ul>
 							<div className="view-job-offers text-center" ref={jobOfferRef}>
 								{data?.map((post, key) => {
